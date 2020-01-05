@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size:  25px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#size-input {
+    padding: 10px;
+    margin: 20px;
+    background: darkturquoise;
+
+}
+
+.grid-container {
+    width: 600px;
+    height: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(4, 1fr);
+    text-align: center;
+}
+
+.grid-container > div {
+    border: 1px solid black;
+    background: white;
+}
+
+#display {
+    grid-column: span 4;
+    text-align: center;
+}
+
+#zero {
+    grid-column: span 3;
+}
+
+#equal {
+    grid-row: span 2;
+}
