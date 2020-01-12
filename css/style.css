@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size:  25px;
+    font-size: 25px;
 }
 
 .container {
@@ -38,9 +38,25 @@
 }
 
 #zero {
-    grid-column: span 3;
+    grid-column: span 2;
 }
 
 #equal {
-    grid-row: span 2;
+    grid-row-start: 6;
+    grid-column-start: 4;
+}
+
+#clear {
+    grid-row-start: 3;
+    grid-column-start: 4;
+}
+
+#point {
+    grid-row-start: 4;
+    grid-column-start: 4;
+}
+
+#backspace {
+    grid-row-start: 5;
+    grid-column-start: 4;
 }
