@@ -47,15 +47,15 @@ class CalculatorFront {
         this.elements['minus'] = addElement('button','-', 'minus', this.classes['operation']);
         this.elements['clear'] = addElement('button','clear', 'clear', this.classes['operation']);
         this.elements['equal'] = addElement('button','=', 'equal', this.classes['operation']);
-        this.elements['one'] = addElement('button','1', 'one', this.classes['number']);
-        this.elements['two'] = addElement('button','2', 'two', this.classes['number']);
-        this.elements['three'] = addElement('button','3', 'three', this.classes['number']);
-        this.elements['four'] = addElement('button','4', 'four', this.classes['number']);
-        this.elements['five'] = addElement('button','5', 'five', this.classes['number']);
-        this.elements['six'] = addElement('button','6', 'six', this.classes['number']);
         this.elements['seven'] = addElement('button','7', 'seven', this.classes['number']);
         this.elements['eight'] = addElement('button','8', 'eight', this.classes['number']);
         this.elements['nine'] = addElement('button','9', 'nine', this.classes['number']);
+        this.elements['four'] = addElement('button','4', 'four', this.classes['number']);
+        this.elements['five'] = addElement('button','5', 'five', this.classes['number']);
+        this.elements['six'] = addElement('button','6', 'six', this.classes['number']);
+        this.elements['one'] = addElement('button','1', 'one', this.classes['number']);
+        this.elements['two'] = addElement('button','2', 'two', this.classes['number']);
+        this.elements['three'] = addElement('button','3', 'three', this.classes['number']);
         this.elements['zero'] = addElement('button','0', 'zero', this.classes['number']);
         this.elements['sign'] = addElement('button','+/-', 'sign', this.classes['operation']);
         this.elements['point'] = addElement('button','.', 'point', this.classes['point']);
@@ -108,11 +108,9 @@ class CalculatorFront {
 
     perform(key) {
         if (!this.logic) throw Error('You need to setup some logic');
-
         if (key in this.operationMapper) {
             key = this.operationMapper[key];
         }
-
         if (key === 'clear') {
             this.clearOutput();
             this.clearInputVariables();
@@ -128,7 +126,7 @@ class CalculatorFront {
             this.firstNumber = this.elements['displayField'].innerHTML || '0';
             this.elements['displayField'].innerHTML = key;
         } else if (key === '=') {
-            if (!this.elements['displayField'].innerHTML) return;
+            if (!this.elements['displayField'].innerHTML || !this.operation) return;
             this.secondNumber = this.elements['displayField'].innerHTML;
             this.elements['displayField'].innerHTML = this.logic.compute(this.firstNumber, this.secondNumber, this.operation);
             this.clearInputVariables();
