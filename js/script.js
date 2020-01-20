@@ -1,14 +1,5 @@
 const app = document.querySelector('#app');
 
-// const addDisplayString = (className = '') => {
-//     const element = document.createElement('div');
-//     element.setAttribute('id', 'display');
-//     if (className) {
-//         element.classList.add(className);
-//     }
-//     return element;
-// };
-
 const addElement = (tag, content='', id='', className='') => {
     const element = document.createElement(tag);
     if (id) element.setAttribute('id', id);
@@ -78,22 +69,35 @@ class CalculatorFront {
     setListeners() {
         const displayField = this.elements['displayField'];
         // Вешаем обработчик для нажатия клавиш.
+        const numbers = '1234567890';
         document.onkeydown = event => {
             const key = event.key;
-            const numbers = '1234567890';
-            if (numbers.includes(key)) displayField.innerHTML += key;
+            // цифры
+            if (numbers.includes(key)) {
+                if (displayField.innerHTML.length === 1 && !numbers.includes(displayField.innerHTML[0])) {
+                    displayField.innerHTML = '';
+                }
+                displayField.innerHTML += key;
+            }
+            // точка
             if (key === '.' && this.checkIfPointAllowed()) displayField.innerHTML += key;
-            if (displayField.innerHTML.length === 0 && key === '-') displayField.innerHTML += key;
+            // остальные операторы
             if (['/', '*', '-', '+', 'Enter', 'Backspace'].includes(key)) this.perform(key);
         };
         // вешаем обработчик на каждую кнопку калькулятора.
         for (let key of Object.keys(this.elements)) {
             let element = this.elements[key];
             element.onclick = () => {
+                // цифры
                 if (element.classList.contains(this.classes['number'])) {
+                    if (displayField.innerHTML.length === 1 && !numbers.includes(displayField.innerHTML[0])) {
+                        displayField.innerHTML = '';
+                    }
                     displayField.innerHTML += element.textContent;
+                // точка
                 } else if (element.classList.contains(this.classes['point'])) {
                     displayField.innerHTML += this.checkIfPointAllowed() ? '.' : '';
+                // операторы
                 } else if (element.classList.contains(this.classes['operation'])) {
                     this.perform(element.textContent);
                 }
@@ -118,14 +122,12 @@ class CalculatorFront {
             } else this.elements['displayField'].innerHTML = `-${this.elements['displayField'].innerHTML}`;
         } else if (key === '<=') {
             this.elements['displayField'].innerHTML = this.elements['displayField'].innerHTML.slice(0, -1);
-        }
-        if (['/', '*', '+', '-'].includes(key)) {
+        } else if (['/', '*', '+', '-'].includes(key)) {
             if (this.operation) return;
             this.operation = key;
             this.firstNumber = this.elements['displayField'].innerHTML || '0';
-            this.elements['displayField'].innerHTML = '';
+            this.elements['displayField'].innerHTML = key;
         } else if (key === '=') {
-            console.log(this.firstNumber, this.operation, this.secondNumber);
             if (!this.elements['displayField'].innerHTML) return;
             this.secondNumber = this.elements['displayField'].innerHTML;
             this.elements['displayField'].innerHTML = this.logic.compute(this.firstNumber, this.secondNumber, this.operation);
