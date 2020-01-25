@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 25px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#size-input {
+    padding: 10px;
+    margin: 20px;
+    background: darkturquoise;
+
+}
+
+.grid-container {
+    width: 600px;
+    height: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(4, 1fr);
+    text-align: center;
+}
+
+.grid-container > div {
+    border: 1px solid black;
+    background: white;
+}
+
+#display {
+    grid-column: span 4;
+    text-align: center;
+    padding-top: 40px;
+}
+
+#zero {
+    grid-column: span 2;
+}
+
+#equal {
+    grid-row-start: 6;
+    grid-column-start: 4;
+}
+
+#clear {
+    grid-row-start: 3;
+    grid-column-start: 4;
+}
+
+#point {
+    grid-row-start: 4;
+    grid-column-start: 4;
+}
+
+#backspace {
+    grid-row-start: 5;
+    grid-column-start: 4;
+}
